@@ -12,8 +12,9 @@ import (
 	"testing"
 	"time"
 
+	"swgen/sample"
+
 	"github.com/kr/pretty"
-	"github.com/lazada/swgen/sample"
 )
 
 type TestSampleStruct struct {

@@ -26,6 +26,8 @@ type Generator struct {
 	indentJSON     bool
 	reflectGoTypes bool
 
+	errResponse interface{}
+
 	mu sync.Mutex // mutex for Generator's public API
 }
 
@@ -193,6 +195,19 @@ func (g *Generator) AddTypeMap(src interface{}, dst interface{}) *Generator {
 	g.mu.Lock()
 	g.typesMap[reflect.TypeOf(src)] = dst
 	g.mu.Unlock()
+	return g
+}
+
+func (g *Generator) SetErrResponse(e interface{}) *Generator {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.errResponse = e
+
+	_, err := g.ParseDefinition(e)
+	if err != nil {
+		return g
+	}
+
 	return g
 }
 

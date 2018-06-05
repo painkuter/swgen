@@ -156,9 +156,6 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 			typeDef.TypeName = typeName
 		}
 
-		//if len(typeDef.Properties) == 0 {
-		//	typeDef.Ref = ""
-		//}
 	case reflect.Slice, reflect.Array:
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
@@ -693,11 +690,32 @@ func (g *Generator) parseResponseObject(responseObj interface{}) (res Responses)
 			Description: "request success",
 			Schema:      &schema,
 		}
+
 	} else {
 		res["200"] = ResponseObj{
 			Description: "request success",
 			Schema:      &SchemaObj{Type: "null"},
 		}
+	}
+	schema, err := g.ParseDefinition(g.errResponse)
+	if err != nil {
+		panic(fmt.Sprintf("could not create schema object for error response %v", responseObj))
+	}
+	res["400"] = ResponseObj{
+		Description: "Response for bad request",
+		Schema:      &schema,
+	}
+	res["404"] = ResponseObj{
+		Description: "Not found response",
+		Schema:      &schema,
+	}
+	res["409"] = ResponseObj{
+		Description: "Duplication error",
+		Schema:      &schema,
+	}
+	res["500"] = ResponseObj{
+		Description: "Internal error response",
+		Schema:      &schema,
 	}
 
 	return res

@@ -3,7 +3,7 @@ package swgen_test
 import (
 	"fmt"
 
-	"github.com/lazada/swgen"
+	"swgen"
 )
 
 func ExampleGenerator_GenDocument() {
