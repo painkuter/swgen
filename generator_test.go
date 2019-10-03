@@ -12,8 +12,6 @@ import (
 	"testing"
 	"time"
 
-	"swgen/sample"
-
 	"github.com/kr/pretty"
 )
 
@@ -348,7 +346,7 @@ func TestREST(t *testing.T) {
 	gen.SetPathItem(createPathItemInfo("/V1/empty", "POST", "test empty struct", "test empty struct", "v1", false), testEmptyStruct{}, nil, testEmptyStruct{})
 
 	gen.SetPathItem(createPathItemInfo("/V1/struct-collision", "POST", "test struct name collision", "test struct name collision", "v1", false), nil, TestSampleStruct{}, TestSampleStruct{})
-	gen.SetPathItem(createPathItemInfo("/V2/struct-collision", "POST", "test struct name collision", "test struct name collision", "v2", false), nil, sample.TestSampleStruct{}, sample.TestSampleStruct{})
+	gen.SetPathItem(createPathItemInfo("/V2/struct-collision", "POST", "test struct name collision", "test struct name collision", "v2", false), nil, TestSampleStruct{}, TestSampleStruct{})
 
 	gen.SetPathItem(createPathItemInfo("/V1/type-map", "POST", "test type mapping", "test type mapping", "v1", false), nil, nil, typeMapHolder{})
 
