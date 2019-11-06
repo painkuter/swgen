@@ -3,7 +3,7 @@ package swgen_test
 import (
 	"fmt"
 
-	"swgen"
+	"github.com/painkuter/swgen"
 )
 
 func ExampleGenerator_GenDocument() {
